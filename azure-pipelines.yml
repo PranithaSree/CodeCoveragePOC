@@ -14,7 +14,7 @@ steps:
     displayName: Nuget Restore
     inputs:
       command: 'restore'
-      projects: '**/Project.Module.App.sln'
+      projects: '**/Project.Model.App.sln'
       feedsToUse: 'select'
   - task: SonarCloudPrepare@1
     displayName: Prepare analysis on sonar cloud
