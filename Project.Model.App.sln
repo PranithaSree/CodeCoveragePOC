@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Model.App", "Project.Model.App\Project.Model.App.csproj", "{39AE2CD1-52E9-4643-80C3-03A13BAD57DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Model.App.Tests", "Project.Model.App.Tests\Project.Model.App.Tests.csproj", "{86A9A789-1950-4E96-979E-8A2E2694E81B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B45F8E63-D5DB-4E7B-91DA-C42A99C81221}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39AE2CD1-52E9-4643-80C3-03A13BAD57DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39AE2CD1-52E9-4643-80C3-03A13BAD57DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39AE2CD1-52E9-4643-80C3-03A13BAD57DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39AE2CD1-52E9-4643-80C3-03A13BAD57DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A9A789-1950-4E96-979E-8A2E2694E81B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A9A789-1950-4E96-979E-8A2E2694E81B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A9A789-1950-4E96-979E-8A2E2694E81B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A9A789-1950-4E96-979E-8A2E2694E81B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21F5E7A5-A4F4-4986-AB69-73BA50AB552A}
+	EndGlobalSection
+EndGlobal

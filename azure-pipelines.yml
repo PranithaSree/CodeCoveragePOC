@@ -1,0 +1,70 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: Nuget Restore
+    inputs:
+      command: 'restore'
+      projects: '**/Project.Module.App.sln'
+      feedsToUse: 'select'
+  - task: SonarCloudPrepare@1
+    displayName: Prepare analysis on sonar cloud
+    inputs:
+      SonarCloud: 'Sonar-HF'
+      organization: 'sonar-hf'
+      scannerMode: 'MSBuild'
+      projectKey: 'CoveragePOC'
+      projectName: 'CoveragePOC'
+  - task: DotNetCoreCLI@2
+    displayName: Build Application Tests
+    inputs:
+      command: 'build'
+      projects: '**/*.Tests.csproj'
+      arguments: '-c $(build.configuration)'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: DotNetCoreCLI@2
+    displayName: Run Tests
+    inputs:
+      command: 'test'
+      projects: '**/*.Tests.csproj'
+  - task: PowerShell@2
+    displayName: Analyze code coverage reports
+    inputs:
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+      targetType: 'inline'
+      script: |
+        Get-ChildItem -Recurse -Filter "*.coverage" | % {  
+        $outfile = "$([System.IO.Path]::GetFileNameWithoutExtension($_.FullName)).coveragexml"  
+        $output = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($_.FullName), $outfile)  
+        "Analyse '$($_.Name)' with output '$outfile'..."  
+        . $env:USERPROFILE\.nuget\packages\microsoft.codecoverage\15.9.0\build\netstandard1.0\CodeCoverage\CodeCoverage.exe analyze /output:$output $_.FullName  
+        }  
+        "Done"
+  - task: SonarCloudAnalyze@1
+    displayName: Run Code Analysis
+  - task: SonarCloudPublish@1
+    displayName: Publish Quality Gate Result
+    inputs:
+      pollingTimeoutSec: '300'
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: '**/*.csproj'
+      arguments: '-c $(build.configuration)'
+      modifyOutputPath: false
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifacts'
+    inputs: 
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/$(appservice.artifact)'
+      ArtifactName: '$(appservice.artifact)'
